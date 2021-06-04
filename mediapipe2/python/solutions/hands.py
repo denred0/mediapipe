@@ -142,7 +142,7 @@ class Hands(SolutionBase):
             'handlandmarkcpu__ThresholdingCalculator.threshold':
                 min_tracking_confidence,
         },
-        outputs=['multi_hand_landmarks', 'multi_handedness'])
+        outputs=['multi_hand_landmarks', 'multi_handedness', 'hand_rects'])
 
   def process(self, image: np.ndarray) -> NamedTuple:
     """Processes an RGB image and returns the hand landmarks and handedness of each detected hand.
