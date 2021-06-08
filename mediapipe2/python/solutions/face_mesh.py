@@ -218,7 +218,7 @@ class FaceMesh(SolutionBase):
             'facelandmarkcpu__ThresholdingCalculator.threshold':
                 min_tracking_confidence,
         },
-        outputs=['multi_face_landmarks'])
+        outputs=['multi_face_landmarks', 'face_rect'])
 
   def process(self, image: np.ndarray) -> NamedTuple:
     """Processes an RGB image and returns the face landmarks on each detected face.

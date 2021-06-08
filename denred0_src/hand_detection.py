@@ -40,18 +40,19 @@ def example():
     mp_hands = mediapipe_hands
 
     data_dir = 'denred0_data'
+    tag = 'tst_bio'
 
     # For static images:
     with mp_hands.Hands(
             static_image_mode=True,
             max_num_hands=2,
             min_detection_confidence=0.4) as hands:
-        _, _, file_list = next(walk(os.path.join(data_dir, 'source')))
+        _, _, file_list = next(walk(os.path.join(data_dir, 'hands_source')))
 
         for idx, file in tqdm(enumerate(sorted(file_list))):
             # Read an image, flip it around y-axis for correct handedness output (see
             # above).
-            image = cv2.flip(cv2.imread(os.path.join(data_dir, 'source', file)), 1)
+            image = cv2.flip(cv2.imread(os.path.join(data_dir, 'hands_source', file)), 1)
             # Convert the BGR image to RGB before processing.
             results = hands.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
@@ -81,11 +82,11 @@ def example():
 
                 hand_img = image[y:y2, x:x2]
 
-                cv2.imwrite(data_dir + '/hands/' + str(idx) + '_' + str(i) + '.jpg', cv2.flip(hand_img, 1))
+                cv2.imwrite(data_dir + '/hands_crop/' + tag + '_' + str(idx) + '_' + str(i) + '.jpg', cv2.flip(hand_img, 1))
 
                 annotated_image = cv2.rectangle(annotated_image, (x, y), (x2, y2), color, thickness)
 
-            cv2.imwrite(data_dir + '/hand_detection_result/' + str(idx) + '.jpg', cv2.flip(annotated_image, 1))
+            cv2.imwrite(data_dir + '/hand_detection/' + tag + '_' + str(idx) + '.jpg', cv2.flip(annotated_image, 1))
 
             # annotated_image = cv2.rectangle(annotated_image, (x, y), (x2, y2), color, thickness)
 
